@@ -14,17 +14,17 @@ const Portfolio = () => {
     >
       <h2 className="text-2xl font-semibold mb-2">The Highlight Reel</h2>
       <p className="text-gray-600 mb-8">Watch the magic we've captured.</p>
-      <img src={c} className="absolute left-16 h-[70%]"></img>
+      <img src={c} className="absolute left-0 top-32 z-[-1] h-[40%] md:left-16 md:h-[70%]"></img>
       <div className="absolute left-[25%] top-[25%]">
       <div className="relative max-w-3xl">
-        <img src={v1} className="absolute right-6 top-36 z-[1]"/>
-        <img src={v2} className="absolute left-6 top-36 z-[1]"/>
-        <img src={r1} className="absolute right-4 top-20 h-[65%]"/>
-        <img src={r2} className="absolute left-4 top-20 h-[65%]"/>
-        <img src={m1} />
+        <img src={v1} className="hidden md:block absolute right-6 top-36 z-[1]"/>
+        <img src={v2} className="hidden md:block absolute left-6 top-36 z-[1]"/>
+        <img src={r1} className="hidden md:block absolute right-4 top-20 h-[65%]"/>
+        <img src={r2} className="hidden md:block absolute left-4 top-20 h-[65%]"/>
+        <img src={m1} className/>
       </div>
       </div>
-      <img src={f} className="absolute right-0 bottom-0"></img>
+      <img src={f} className="hidden md:block absolute right-0 bottom-0"></img>
     </section>
   );
 };

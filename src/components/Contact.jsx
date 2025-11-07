@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-
+import v1 from "../assets/FooterVec1.png";
+import v2 from "../assets/FooterVec2.png";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -8,75 +8,79 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [responseMsg, setResponseMsg] = useState("");
 
-  const [response, setResponse] = useState("");
-
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
-    if (!formData.name || !formData.email || !formData.message || !formData.phone) {
-      setResponse("All fields are required.");
+    //Fields validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setResponseMsg("Please fill all required fields.");
       return;
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setResponse("Invalid email address.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setResponseMsg("Please enter a valid email.");
       return;
     }
 
     try {
-      const res = await axios.post(
-        "https://vernanbackend.ezlab.in/api/contact-us/",
-        formData
-      );
+      const res = await fetch("https://vernanbackend.ezlab.in/api/contact-us/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (res.status === 200) {
-        setResponse("Form Submitted ✅");
+      if (res.ok) {
+        setResponseMsg("Form Submitted Successfully");
         setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        const errorData = await res.json();
+        setResponseMsg(errorData.error || "Something went wrong");
       }
-    } catch (err) {
-      setResponse("Submission failed. Try again later.");
+    } catch (error) {
+      setResponseMsg("Network error");
     }
   };
 
   return (
+    <div className="relative">
+      <img src={v1} className="absolute bottom-0 left-0 z-[-1]"/>
+      <img src={v2} className="absolute right-0 top-0 z-[-1]"/>
     <section
       id="contact"
-      className="min-h-screen bg-[#fff7f3] flex flex-col md:flex-row justify-center items-center px-6 py-16"
+      className="min-h-screen bg-[#fdd0c14e] flex flex-col md:flex-row md:justify-evenly md:items-center px-6 md:px-16 py-12"
     >
-      <div className="md:w-1/2 mb-8 md:mb-0">
-        <p className="text-gray-700 max-w-md">
-          Whether you have an idea or want to explore how V can work together,
-          we’re just a message away. Great stories begin with a conversation.
-        </p>
+      <div className="text-center md:w-1/3 text-xl font-serif">
+        Whether you have an idea, a question, or simply want to explore how V can work together, V’re just a message away.<br/>"Let’s catch up over coffee."<br/>Great stories always begin with a good conversation
       </div>
-
+      <div className="flex flex-col justify-center items-center gap-2">
+      <div className="text-3xl font-semibold pt-8">Join The Story</div>
+      <div className="text-sm">Ready To bring your vision to life? Let's Talk</div>
       <form
         onSubmit={handleSubmit}
-        className="md:w-1/2 bg-white p-8 rounded-lg shadow-md space-y-4 w-full max-w-md"
+        className="bg-trasparent p-8 rounded-xl w-full max-w-lg space-y-5"
       >
-        <h2 className="text-xl font-semibold text-center mb-4">Join the Story</h2>
-
         <input
           type="text"
           name="name"
-          placeholder="Your name*"
+          placeholder="Your name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e65c3c]"
         />
         <input
           type="email"
           name="email"
-          placeholder="Your email*"
+          placeholder="Your email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e65c3c]"
         />
         <input
           type="text"
@@ -84,28 +88,30 @@ const Contact = () => {
           placeholder="Phone"
           value={formData.phone}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e65c3c]"
         />
         <textarea
           name="message"
-          placeholder="Your message*"
+          placeholder="Your message"
           value={formData.message}
           onChange={handleChange}
-          className="w-full border p-2 rounded h-24"
+          className="w-full border p-3 rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-[#e65c3c]"
         ></textarea>
 
         <button
           type="submit"
-          className="bg-[#e65c3c] text-white w-full py-2 rounded hover:bg-[#d94b2b]"
+          className="w-full bg-[#e65c3c] text-white py-3 rounded-full hover:bg-[#d94b2b] transition"
         >
           Submit
         </button>
 
-        {response && (
-          <p className="text-center text-sm text-gray-700 mt-2">{response}</p>
+        {responseMsg && (
+          <p className="text-center text-gray-700 mt-3 text-xl">{responseMsg}</p>
         )}
       </form>
+      </div>
     </section>
+    </div>
   );
 };
 

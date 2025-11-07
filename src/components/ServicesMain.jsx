@@ -1,36 +1,28 @@
 import React from "react";
-import m1 from "../assets/Group 9.png"
+import f1 from "../assets/f1.png";
+import f2 from "../assets/f2.png";
+import f3 from "../assets/f3.png";
+import tape from "../assets/image 6.png";
+import top from "../assets/Vector 5.svg";
+import bot from "../assets/Frame 33.svg";
 const ServicesMain = () => {
-  const services = [
-    { img: {m1}, title: "Film Production" },
-    { img: {m1}, title: "Branding" },
-    { img: {m1}, title: "Art Curation" },
-  ];
 
   return (
     <section
       id="services"
-      className="bg-[#fff7f3] py-16 px-6 text-center min-h-screen"
+      className="relative bg-[#fdd0c14e] py-16 px-6 text-center min-h-screen overflow-hidden"
     >
-      <h2 className="text-2xl italic text-[#1b345d] mb-10">
+      <h2 className="text-md md:text-3xl italic text-[#1b345d] mb-10">
         The storyboard reveals the breadth of our craft.
       </h2>
-
-      <div className="flex flex-wrap justify-center gap-8">
-        {services.map((s, i) => (
-          <div
-            key={i}
-            className="bg-white p-3 rounded shadow-lg max-w-xs hover:scale-105 transition transform"
-          >
-            <img
-              src={s.img}
-              alt={s.title}
-              className="rounded mb-3"
-            />
-            <p className="font-medium">{s.title}</p>
-          </div>
-        ))}
-      </div>
+      <img src={f1} className="absolute md:right-[18%] md:top-[30%] w-[50%] md:w-[23%]"/>
+      <img src={f2} className="absolute top-[55%] left-[30%] md:left-[40%] md:top-[35%] w-[50%] md:w-[20%]"/>
+      <img src={f3} className="absolute right-0 md:left-[18%] md:top-[30%] w-[50%] md:w-[23%]"/>
+      <img src={top} className="absolute top-24 md:left-[25%]"/>
+      <img src={bot} className="absolute bottom-0 left-0"/>
+      <img src={tape} className="hidden md:block absolute left-[45%] top-[32%] w-[10%]"/>
+      <img src={tape} className="hidden md:block absolute right-[19%] top-[30%] rotate-[30deg] w-[10%]"/>
+      <img src={tape} className="hidden md:block absolute left-[19%] top-[30%] w-[10%]"/>
     </section>
   );
 };

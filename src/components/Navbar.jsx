@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/VFilms Logo.png"
+import m from "../assets/Menu.svg";
+import c from "../assets/Hero/Open.svg";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openNav, setOpenNav] = useState(false);
@@ -8,7 +10,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-[#fff7f3]/90 backdrop-blur-md shadow-sm">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent">
       <div className="flex justify-between items-center px-6 md:px-12 py-4">
         {/* Logo */}
         <img src={logo} className="w-24 h-10"/>
@@ -19,7 +21,7 @@ const Navbar = () => {
           {/* Links (appear next to X) */}
           <div
             className={`flex items-center space-x-6 transition-all duration-300 ${
-              openNav ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"
+              openNav ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4 pointer-events-none"
             }`}
           >
             <a href="#services" className="hover:text-[#e65c3c]">Services</a>
@@ -38,7 +40,7 @@ const Navbar = () => {
             onClick={() => setOpenNav(!openNav)}
             className="text-2xl font-bold text-[#e65c3c]"
           >
-            {openNav ? <X size={24} /> : "X"}
+            {openNav ? <img src={c}/> : <img src={m}/>}
           </button>
         </div>
 
